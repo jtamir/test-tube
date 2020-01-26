@@ -22,7 +22,7 @@ def generate_trials(strategy, flat_params, nb_trials=None):
     Generates the parameter combinations for each requested trial
     :param strategy:
     :param flat_params:
-    :param nb_trials: The number of trials to un.
+    :param nb_trials: The number of trials to run.
     :return:
     """
     if strategy == 'grid_search':

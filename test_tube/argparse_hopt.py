@@ -53,12 +53,12 @@ def optimize_parallel_gpu_private(args):
 
 
 def optimize_parallel_cpu_private(args):
-    trial_params, train_function = args[0], args[1]
+    i, trial_params, train_function = args[0], args[1], args[2]
 
     sleep(random.randint(0, 4))
 
     # run training fx on the specific gpus
-    results = train_function(trial_params)
+    results = train_function(trial_params, i)
 
     # True = completed
     return [trial_params, results]
@@ -382,7 +382,7 @@ class HyperOptArgumentParser(ArgumentParser):
             nb_trials=nb_trials
         )
 
-        self.trials = [(self.__namespace_from_trial(x), train_function) for x in self.trials]
+        self.trials = [(i, self.__namespace_from_trial(x), train_function) for (i,x) in enumerate(self.trials)]
 
         # init a pool with the nb of worker threads we want
         if self.pool is None:
